@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.signup.SignUpController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="300.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <viewport>
+            <Rectangle2D height="720.0" width="1280.0" />
+         </viewport>
+         <image>
+            <Image url="@../images/signup_scene.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="usernameTextField" layoutX="424.0" layoutY="386.0" prefHeight="32.0" prefWidth="194.0" promptText="User" style="-fx-background-radius: 10;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <TextField fx:id="phoneTextField" layoutX="424.0" layoutY="445.0" prefHeight="32.0" prefWidth="194.0" promptText="Phone" style="-fx-background-radius: 10;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <PasswordField fx:id="passwordField" layoutX="663.0" layoutY="386.0" prefHeight="32.0" prefWidth="194.0" promptText="Password" style="-fx-background-radius: 10;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></PasswordField>
+      <PasswordField fx:id="checkPasswordField" layoutX="662.0" layoutY="446.0" prefHeight="32.0" prefWidth="194.0" promptText="Re-type password" style="-fx-background-radius: 10;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></PasswordField>
+      <Button fx:id="createButton" layoutX="558.0" layoutY="556.0" mnemonicParsing="false" onAction="#onActionCreateButton" opacity="0.0" prefHeight="32.0" prefWidth="59.0" text="create">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="backButton" layoutX="665.0" layoutY="560.0" mnemonicParsing="false" onAction="#onActionBackButton" opacity="0.0" prefHeight="25.0" prefWidth="59.0" text="back">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="exitButton" layoutX="1242.0" layoutY="7.0" mnemonicParsing="false" onAction="#onActionExitButton" opacity="0.0" prefHeight="25.0" prefWidth="30.0" text="exit">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+   </children>
+</AnchorPane>

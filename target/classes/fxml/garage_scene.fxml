@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.garage.GarageController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="241.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <viewport>
+            <Rectangle2D height="720.0" width="1280.0" />
+         </viewport>
+         <image>
+            <Image url="@../images/fleet_scene.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableView" layoutX="253.0" layoutY="134.0" prefHeight="445.0" prefWidth="772.0">
+        <columns>
+          <TableColumn fx:id="brand" prefWidth="140.33334350585938" text="Brand" />
+            <TableColumn fx:id="model" prefWidth="305.6666564941406" text="Model" />
+            <TableColumn fx:id="value" prefWidth="166.00003051757812" text="Value" />
+          <TableColumn fx:id="mileage" prefWidth="156.33334350585938" text="Mileage" />
+        </columns>
+      </TableView>
+      <Button fx:id="insertButton" layoutX="541.0" layoutY="626.0" mnemonicParsing="false" onAction="#onActionInsertButton" opacity="0.0" prefHeight="25.0" prefWidth="59.0" text="insert">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="exitButton" layoutX="1241.0" layoutY="7.0" mnemonicParsing="false" onAction="#onActionExitButton" opacity="0.0" prefHeight="25.0" prefWidth="31.0" text="exit">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="removeButton" layoutX="678.0" layoutY="627.0" mnemonicParsing="false" onAction="#onActionRemoveButton" opacity="0.0" prefHeight="25.0" prefWidth="61.0" text="remove">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="backButton" layoutX="43.0" layoutY="71.0" mnemonicParsing="false" onAction="#onActionBackButton" opacity="0.0" prefHeight="25.0" prefWidth="23.0" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+   </children>
+</AnchorPane>

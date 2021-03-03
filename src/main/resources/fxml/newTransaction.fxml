@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.transactions.newTransactionController">
+   <children>
+      <ImageView fitHeight="360.0" fitWidth="600.0" layoutX="25.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <viewport>
+            <Rectangle2D height="360.0" width="600.0" />
+         </viewport>
+         <image>
+            <Image url="@../images/newTransaction_window.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+      <TextField fx:id="brandField" layoutX="288.0" layoutY="92.0" prefHeight="25.0" prefWidth="301.0" promptText="Brand" />
+      <TextField fx:id="modelField" layoutX="288.0" layoutY="142.0" prefHeight="25.0" prefWidth="301.0" promptText="Model" />
+      <TextField fx:id="valueField" layoutX="288.0" layoutY="192.0" prefHeight="25.0" prefWidth="301.0" promptText="Value" />
+      <TextField fx:id="mileageField" layoutX="288.0" layoutY="242.0" prefHeight="25.0" prefWidth="301.0" promptText="Mileage" />
+      <MenuButton fx:id="menuButton" layoutX="517.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #ff3f40; -fx-font-size: 12; -fx-background-radius: 0; -fx-text-fill: BLACK;" text="Type">
+        <items>
+          <MenuItem fx:id="buy" mnemonicParsing="false" onAction="#buyOptionSelected" text="Buy" />
+          <MenuItem fx:id="sale" mnemonicParsing="false" onAction="#saleOptionSelected" text="Sale" />
+        </items>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MenuButton>
+      <Button fx:id="goButton" layoutX="288.0" layoutY="311.0" mnemonicParsing="false" onAction="#onActionGoButton" opacity="0.0" prefHeight="25.0" prefWidth="47.0" text="go">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="exitButton" layoutX="562.0" layoutY="8.0" mnemonicParsing="false" onAction="#onActionExitButton" opacity="0.0" prefHeight="25.0" prefWidth="27.0" text="exit">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

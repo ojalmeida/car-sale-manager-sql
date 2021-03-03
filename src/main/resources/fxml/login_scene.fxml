@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.login.LoginController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="286.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <viewport>
+            <Rectangle2D height="720.0" width="1280.0" />
+         </viewport>
+         <image>
+            <Image url="@../images/login_scene.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="loginButton" layoutX="558.0" layoutY="560.0" mnemonicParsing="false" onAction="#onActionLoginButton" opacity="0.0" prefHeight="25.0" prefWidth="63.0" text="Login">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="SignUpButton" layoutX="658.0" layoutY="560.0" mnemonicParsing="false" onAction="#onActionSignUpButton" opacity="0.0" prefHeight="25.0" prefWidth="63.0" text="Signup">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <TextField fx:id="userTextField" layoutX="544.0" layoutY="406.0" prefHeight="32.0" prefWidth="194.0" promptText="User" style="-fx-background-radius: 10;" />
+      <PasswordField fx:id="passwordField" layoutX="544.0" layoutY="455.0" prefHeight="32.0" prefWidth="194.0" promptText="Password" style="-fx-background-radius: 10;" />
+      <Button fx:id="exitButton" layoutX="1241.0" layoutY="7.0" mnemonicParsing="false" onAction="#onActionExitButton" opacity="0.0" prefHeight="17.0" prefWidth="30.0" text="Exit">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+   </children>
+</AnchorPane>
