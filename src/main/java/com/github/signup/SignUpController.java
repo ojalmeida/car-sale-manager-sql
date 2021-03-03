@@ -49,7 +49,7 @@ public class SignUpController implements Initializable {
       
       private void createAccount() throws IOException {
 
-            DataStorageService.addUser(new User(usernameTyped, passwordTyped, phoneTyped));
+            DataStorageService.addUser(new User(null, usernameTyped, passwordTyped, phoneTyped));
             Main.USER.setUsername(usernameTyped);
             Main.USER.setPassword(passwordTyped);
             Main.USER.setPhone(phoneTyped);

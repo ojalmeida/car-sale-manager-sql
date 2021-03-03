@@ -28,28 +28,16 @@ public class DataStorageService implements DataStorageInterface{
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
     private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-
-
-
-
     public static List<User> loadUsers() throws IOException {
 
-        return entityManager.createQuery("SELECT * FROM Users", User.class).getResultList();
+        return entityManager.createNativeQuery("SELECT * FROM `users`", User.class).getResultList();
 
     }
     public static void addUser(User user) throws IOException {
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(AUTHENTICATION_PATH, true));
-
-        String username = encryptData(user.getUsername());
-        String passsword = encryptData(user.getPassword());
-        String phone = encryptData(user.getPhone());
-
-        writer.write(username);
-        writer.write("; " + passsword);
-        writer.write("; " + phone);
-        writer.newLine();
-        writer.close();
+        entityManager.getTransaction().begin();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
 
     }
 
@@ -122,7 +110,7 @@ public class DataStorageService implements DataStorageInterface{
             Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse((decryptData(dividedLine[4])));
             String salesman = decryptData(dividedLine[5]);
 
-            Transaction transaction = new Transaction(new Car(brand, model, value, mileage), date, new User(salesman, null, null));
+            Transaction transaction = new Transaction(new Car(brand, model, value, mileage), date, new User(null, salesman, null, null));
             transactions.add(transaction);
 
             line = reader.readLine();
@@ -298,7 +286,6 @@ public class DataStorageService implements DataStorageInterface{
     }
     public static Boolean verifyUserData(User user) throws IOException {
         for (User u : DataStorageService.loadUsers()){
-            System.out.println(u);
             if (u.getUsername().equals(user.getUsername()) &&
                     u.getPassword().equals(user.getPassword())){
                 return true;
