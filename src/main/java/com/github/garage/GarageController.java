@@ -53,7 +53,7 @@ public class GarageController implements Initializable {
 
     public void onActionRemoveButton(ActionEvent actionEvent) throws IOException {
         Car selectedCar = tableView.getSelectionModel().getSelectedItem();
-        DataStorageService.removeCarFromFile(selectedCar);
+        DataStorageService.removeCar(selectedCar);
         tableView.getItems().remove(selectedCar);
 
     }
@@ -66,7 +66,7 @@ public class GarageController implements Initializable {
 
         try {
 
-            tableView.setItems(DataStorageService.carsStoraged());
+            tableView.getItems().setAll(DataStorageService.cars());
             NEEDS_DATA_UPDATE.set(false);
 
         } catch (IOException e) {

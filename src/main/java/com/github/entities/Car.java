@@ -7,26 +7,30 @@ import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-@Table(name = "Cars")
+@Table(name = "cars")
 public class Car implements Serializable {
-
-
-    private Integer id;
-    private final SimpleStringProperty brand;
-    private final SimpleStringProperty model;
-    private final SimpleDoubleProperty value;
-    private final SimpleIntegerProperty mileage;
-
-    public Car(String brand, String model, Double value, Integer mileage) {
-        this.brand = new SimpleStringProperty(brand);
-        this.model = new SimpleStringProperty(model);
-        this.value = new SimpleDoubleProperty(value);
-        this.mileage = new SimpleIntegerProperty(mileage);
-    }
 
     @Column(name = "Id")
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
+
+    private String brand;
+    private String model;
+    private Double value;
+    private Integer mileage;
+
+    public Car(Integer id, String brand, String model, Double value, Integer mileage) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.value = value;
+        this.mileage = mileage;
+    }
+
+    public Car() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -34,55 +38,42 @@ public class Car implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "Brand")
     public String getBrand() {
-        return brand.get();
-    }
-    public void setBrand(String brand) {
-        this.brand.set(brand);
-    }
-
-    @Column(name = "Model")
-    public String getModel() {
-        return model.get();
-    }
-    public void setModel(String model) {
-        this.model.set(model);
-    }
-
-    @Column(name = "Value")
-    public double getValue() {
-        return value.get();
-    }
-    public void setValue(double value) {
-        this.value.set(value);
-    }
-
-    @Column(name = "Mileage")
-    public int getMileage() {
-        return mileage.get();
-    }
-    public void setMileage(int mileage) {
-        this.mileage.set(mileage);
-    }
-
-
-    public SimpleStringProperty brandProperty() {
         return brand;
     }
-    public SimpleStringProperty modelProperty() {
-        return model;
-    }
-    public SimpleDoubleProperty valueProperty() {
-        return value;
-    }
-    public SimpleIntegerProperty mileageProperty() {
-        return mileage;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
+    public String getModel() {
+        return model;
+    }
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
+    }
 
     @Override
     public String toString() {
-        return "[ " + getBrand() + ", " + getModel() + ", " + getValue() + ", " + getMileage() + " ]";
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", value=" + value +
+                ", mileage=" + mileage +
+                '}';
     }
 }

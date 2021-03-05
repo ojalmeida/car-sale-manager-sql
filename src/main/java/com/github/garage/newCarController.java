@@ -40,8 +40,8 @@ public class newCarController implements Initializable {
     @FXML
     public void onActionInsertButton(ActionEvent actionEvent) throws IOException {
 
-        newCar = new Car(brand, model, value, mileage);
-        DataStorageService.addCarToFile(newCar);
+        newCar = new Car(null, brand, model, value, mileage);
+        DataStorageService.addCar(newCar);
         GarageController.NEEDS_DATA_UPDATE.set(true);
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();

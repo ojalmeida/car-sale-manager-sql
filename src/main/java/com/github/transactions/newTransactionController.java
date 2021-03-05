@@ -76,12 +76,12 @@ public class newTransactionController implements Initializable {
         Date date = cal.getTime();
 
         if(isBuying){
-            Car car = new Car(brand, model, Double.parseDouble(value) * (-1), Integer.parseInt(mileage));
-            return new Transaction(car, date, Main.USER);
+            Car car = new Car(null, brand, model, Double.parseDouble(value) * (-1), Integer.parseInt(mileage));
+            return new Transaction(null, car, date, Main.USER);
         }
         else{
-            Car car = new Car(brand, model, Double.parseDouble(value), Integer.parseInt(mileage));
-            return new Transaction(car, date, Main.USER);
+            Car car = new Car(null, brand, model, Double.parseDouble(value), Integer.parseInt(mileage));
+            return new Transaction(null, car, date, Main.USER);
         }
     }
 

@@ -10,33 +10,27 @@ import java.util.Date;
 
 
 @Entity
-@Access(AccessType.PROPERTY)
-@Table(name = "Transactions")
+@Table(name = "transactions")
 public class Transaction implements Serializable {
 
 
-    private Integer id;
-    private final ObjectProperty<Car> carProperty;
-    private final ObjectProperty<Date> dateProperty;
-    private final ObjectProperty<User> salesmanProperty;
-
-
-    public Transaction(Car car, Date date, User salesman) {
-        carProperty = new SimpleObjectProperty<>();
-        carProperty.set(car);
-        dateProperty = new SimpleObjectProperty<>();
-        dateProperty.set(date);
-        salesmanProperty = new SimpleObjectProperty<>();
-        salesmanProperty.set(salesman);
-
-
-    }
-
-
-    /// To map
-    @Column(name = "Id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private Car car;
+    private Date date;
+    private User salesman;
+
+    public Transaction(Integer id, Car car, Date date, User salesman) {
+        this.id = id;
+        this.car = car;
+        this.date = date;
+        this.salesman = salesman;
+    }
+
+    public Transaction() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -44,48 +38,34 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "Car")
-    public Integer getCarId(){
-        return carProperty.get().getId();
-    }
-    public void setCarId(Integer id){this.carProperty.get().setId(id);}
-
-    @Column(name = "Date")
-    public Date getDate() {
-        return dateProperty.get();
-    }
-    public void setDate(Date date){
-        this.dateProperty.set(date);
-    }
-
-    @Column(name = "Salesman")
-    public Integer getSalesmanId(){
-        return salesmanProperty.get().getId();
-    }
-
-    public void setSalesmanId(Integer id){this.salesmanProperty.get().setId(id);}
-
-    ///Transients
-
-    @Transient
     public Car getCar() {
-        return carProperty.get();
+        return car;
     }
-    @Transient
-    public User getSalesman() {
-        return salesmanProperty.get();
-    }
-    @Transient
-    public ObjectProperty<Car> getCarProperty() {
-        return carProperty;
-    }
-    @Transient
-    public ObjectProperty<Date> getDateProperty() {
-        return dateProperty;
-    }
-    @Transient
-    public ObjectProperty<User> getSalesmanProperty() {
-        return salesmanProperty;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public User getSalesman() {
+        return salesman;
+    }
+    public void setSalesman(User salesman) {
+        this.salesman = salesman;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", car=" + car +
+                ", date=" + date +
+                ", salesman=" + salesman +
+                '}';
+    }
 }
