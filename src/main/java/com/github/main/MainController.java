@@ -24,8 +24,7 @@ public class MainController implements Initializable {
       public Button transactionsButton;
       public Text nameText;
       public Text phoneText;
-      
-      @FXML
+
       public void onActionExitButton(ActionEvent actionEvent){
       
             Stage stage = (Stage) mainExitButton.getScene().getWindow();

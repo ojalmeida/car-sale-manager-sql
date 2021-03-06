@@ -42,7 +42,6 @@ public class TransactionsController implements Initializable {
             Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.close();
       }
-
       public void onActionNewTransactionButton(ActionEvent actionEvent) throws IOException {
 
             Stage popup = new Stage();
@@ -54,17 +53,15 @@ public class TransactionsController implements Initializable {
 
 
       }
-
       public void onActionRemoveButton(ActionEvent actionEvent) throws IOException {
             Transaction transaction = tableView.getSelectionModel().getSelectedItem();
             if(transaction != null){
 
-                  DataStorageService.removeTransactionFromFile(transaction);
+                  DataStorageService.removeTransaction(transaction);
                   tableView.getItems().remove(transaction);
 
             }
       }
-
       public void onActionBackButton(ActionEvent actionEvent) throws IOException {
             Main.enterMain((Stage) exitButton.getScene().getWindow());
       }
@@ -82,7 +79,6 @@ public class TransactionsController implements Initializable {
       }
 
 
-
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -94,6 +90,8 @@ public class TransactionsController implements Initializable {
 
             });
 
+            updateTable();
+
             date.setCellValueFactory(new PropertyValueFactory<>("Date"));
             date.setCellValueFactory(entry -> new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(entry.getValue().getDate())));
 
@@ -101,13 +99,13 @@ public class TransactionsController implements Initializable {
             salesman.setCellValueFactory(entry -> new SimpleStringProperty(entry.getValue().getSalesman().getUsername()));
 
             brand.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-            brand.setCellValueFactory(entry -> new SimpleStringProperty(entry.getValue().getCar().getBrand()));
+            brand.setCellValueFactory(entry -> new SimpleStringProperty(entry.getValue().getCarBrand()));
 
             model.setCellValueFactory(new PropertyValueFactory<>("Model"));
-            model.setCellValueFactory(entry -> new SimpleStringProperty(entry.getValue().getCar().getModel()));
+            model.setCellValueFactory(entry -> new SimpleStringProperty(entry.getValue().getCarModel()));
 
             value.setCellValueFactory(new PropertyValueFactory<>("Value"));
-            value.setCellValueFactory(entry -> new SimpleStringProperty(Double.toString(entry.getValue().getCar().getValue())));
+            value.setCellValueFactory(entry -> new SimpleStringProperty(Double.toString(entry.getValue().getCarValue())));
             value.setCellFactory(column -> new TableCell<>() {
                   @Override
                   protected void updateItem(String item, boolean empty) {
@@ -131,8 +129,6 @@ public class TransactionsController implements Initializable {
                         }
                   }
             });
-
-            NEEDS_DATA_UPDATE.set(true);
 
       }
 }

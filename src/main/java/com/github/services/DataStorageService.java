@@ -20,7 +20,7 @@ import java.util.List;
 public class DataStorageService implements DataStorageInterface{
 
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-    private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public static final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public static List<User> loadUsers() throws IOException {
 
@@ -33,32 +33,6 @@ public class DataStorageService implements DataStorageInterface{
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-    }
-
-    public static String encryptData(String data) {
-
-        char[] decrypted_chars = data.toCharArray();
-        StringBuilder encrypted_data = new StringBuilder();
-
-        for (int i = 0; i < decrypted_chars.length; i++){
-            char[] encrypted_chars = new char[decrypted_chars.length];
-            encrypted_chars[i] = (char) (decrypted_chars[i] + 1);
-            encrypted_data.append((encrypted_chars[i]));
-        }
-
-        return encrypted_data.toString();
-    }
-    public static String decryptData(String encryptedData) {
-        char[] encrypted_chars = encryptedData.toCharArray();
-        StringBuilder decrypted_data = new StringBuilder();
-
-        for (int i = 0; i < encrypted_chars.length; i++){
-            char[] decrypted_chars = new char[encrypted_chars.length];
-            decrypted_chars[i] = (char) (encrypted_chars[i] - 1);
-            decrypted_data.append((decrypted_chars[i]));
-        }
-
-        return decrypted_data.toString();
     }
 
     public static ObservableList<Car> cars() throws IOException {
@@ -101,8 +75,14 @@ public class DataStorageService implements DataStorageInterface{
 
 
     }
-    public static void removeTransactionFromFile(Transaction transaction) throws IOException {
+    public static void removeTransaction(Transaction transaction) throws IOException {
 
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM Transaction WHERE id = :id")
+                .setParameter("id", transaction.getId())
+                .executeUpdate();
+        entityManager.persist(new Car(null, transaction.getCarBrand(), transaction.getCarModel(), transaction.getCarValue(), transaction.getCarMileage()));
+        entityManager.getTransaction().commit();
 
     }
 

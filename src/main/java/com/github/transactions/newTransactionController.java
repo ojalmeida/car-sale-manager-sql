@@ -2,6 +2,7 @@ package com.github.transactions;
 
 import com.github.entities.Car;
 import com.github.entities.Transaction;
+import com.github.entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,18 +71,30 @@ public class newTransactionController implements Initializable {
         }
     }
 
-    private Transaction processTransaction(){
+    private Transaction processTransaction() throws IOException {
 
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
 
+        User salesman = DataStorageService.entityManager.createQuery("select u from User u where u.username = ?0 and u.password = ?1", User.class)
+                .setParameter(0, Main.USER.getUsername())
+                .setParameter(1, Main.USER.getPassword()).getResultList().get(0);
+
         if(isBuying){
             Car car = new Car(null, brand, model, Double.parseDouble(value) * (-1), Integer.parseInt(mileage));
-            return new Transaction(null, car, date, Main.USER);
+            return new Transaction(null, car, date, salesman);
         }
         else{
-            Car car = new Car(null, brand, model, Double.parseDouble(value), Integer.parseInt(mileage));
-            return new Transaction(null, car, date, Main.USER);
+            Car car = DataStorageService.entityManager.createQuery("select c from Car c where c.brand = ?0 and c.model = ?1 and c.value = ?2 and c.mileage = ?3", Car.class)
+                    .setParameter(0, brand)
+                    .setParameter(1, model)
+                    .setParameter(2, Double.parseDouble(value))
+                    .setParameter(3, Integer.parseInt(mileage))
+                    .getResultList().get(0);
+
+            DataStorageService.removeCar(car);
+
+            return new Transaction(null, car, date, salesman);
         }
     }
 

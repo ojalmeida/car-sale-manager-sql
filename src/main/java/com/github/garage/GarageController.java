@@ -95,6 +95,5 @@ public class GarageController implements Initializable {
 
         });
 
-        NEEDS_DATA_UPDATE.set(true);
     }
 }

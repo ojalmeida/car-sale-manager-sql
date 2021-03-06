@@ -10,6 +10,7 @@ import java.util.Date;
 
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "transactions")
 public class Transaction implements Serializable {
 
@@ -17,13 +18,21 @@ public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Car car;
+    private String carBrand;
+    private String carModel;
+    private Double carValue;
+    private Integer carMileage;
+    @Temporal(TemporalType.DATE)
     private Date date;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User salesman;
 
     public Transaction(Integer id, Car car, Date date, User salesman) {
         this.id = id;
-        this.car = car;
+        this.carBrand = car.getBrand();
+        this.carModel = car.getModel();
+        this.carValue = car.getValue();
+        this.carMileage = car.getMileage();
         this.date = date;
         this.salesman = salesman;
     }
@@ -38,11 +47,32 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public Car getCar() {
-        return car;
+    public String getCarBrand() {
+        return carBrand;
     }
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public Integer getCarMileage() {
+        return carMileage;
+    }
+    public void setCarMileage(Integer carMileage) {
+        this.carMileage = carMileage;
+    }
+
+    public Double getCarValue() {
+        return carValue;
+    }
+    public void setCarValue(Double value) {
+        this.carValue = value;
     }
 
     public Date getDate() {
@@ -63,7 +93,10 @@ public class Transaction implements Serializable {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", car=" + car +
+                ", carBrand='" + carBrand + '\'' +
+                ", carModel='" + carModel + '\'' +
+                ", carValue=" + carValue +
+                ", carMileage=" + carMileage +
                 ", date=" + date +
                 ", salesman=" + salesman +
                 '}';
