@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import com.github.services.DataStorageService;
 
@@ -22,6 +23,7 @@ public class newCarController implements Initializable {
     public TextField modelTextField;
     public TextField valueTextField;
     public TextField mileageTextField;
+    public Pane anchorPane;
 
     static String brand = null;
     static String model = null;
@@ -30,14 +32,14 @@ public class newCarController implements Initializable {
 
     public static Car newCar;
 
-    @FXML
+
     public void onActionExitButton(ActionEvent actionEvent){
 
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
-    @FXML
+
     public void onActionInsertButton(ActionEvent actionEvent) throws IOException {
 
         newCar = new Car(null, brand, model, value, mileage);
@@ -48,6 +50,8 @@ public class newCarController implements Initializable {
 
 
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,6 +74,13 @@ public class newCarController implements Initializable {
             }
 
             mileage = Integer.valueOf(newValue);
+        });
+
+        anchorPane.setOnMousePressed(pressEvent -> {
+            anchorPane.setOnMouseDragged(dragEvent -> {
+                anchorPane.getScene().getWindow().setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+                anchorPane.getScene().getWindow().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+            });
         });
 
     }
