@@ -65,6 +65,24 @@ public class DataStorageService implements DataStorageInterface{
                 .executeUpdate();
         entityManager.getTransaction().commit();
     }
+    public static List<Car> findCarsByBrand(String brand){
+        return entityManager.createQuery("select c from Car c where c.brand = ?0", Car.class)
+                .setParameter(0, brand).getResultList();
+    }
+    public static List<Car> findCarsByModel(String model){
+        return entityManager.createQuery("select c from Car c where c.model = ?0", Car.class)
+                .setParameter(0, model).getResultList();
+    }
+    public static List<Car> findCarsByValue(Double value){
+        return entityManager.createQuery("select c from Car c where c.value = ?0", Car.class)
+                .setParameter(0, value).getResultList();
+    }
+    public static List<Car> findCarsByMileage(Integer mileage){
+        return entityManager.createQuery("select c from Car c where c.mileage = ?0", Car.class)
+                .setParameter(0, mileage).getResultList();
+    }
+
+
 
     public static void addTransaction(Transaction transaction) throws IOException, ParseException {
 
