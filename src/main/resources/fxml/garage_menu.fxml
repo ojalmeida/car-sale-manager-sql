@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="anchorPane" prefHeight="185.0" prefWidth="155.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.garage.GarageMenuController">
+   <children>
+      <ImageView fitHeight="185.0" fitWidth="155.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <viewport>
+            <Rectangle2D height="185.0" width="155.0" />
+         </viewport>
+         <image>
+            <Image url="@../images/garage_menu.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="searchButton" layoutX="6.0" mnemonicParsing="false" onAction="#onActionSearchButton" opacity="0.0" prefHeight="37.0" prefWidth="144.0" text="search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="sellButton" layoutX="6.0" layoutY="51.0" mnemonicParsing="false" onAction="#onActionSellButton" opacity="0.0" prefHeight="37.0" prefWidth="144.0" text="sell">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="refreshButton" layoutX="6.0" layoutY="98.0" mnemonicParsing="false" onAction="#onActionRefreshButton" opacity="0.0" prefHeight="37.0" prefWidth="144.0" text="refresh">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="clearButton" layoutX="6.0" layoutY="145.0" mnemonicParsing="false" onAction="#onActionClearButton" opacity="0.0" prefHeight="37.0" prefWidth="144.0" text="clear">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

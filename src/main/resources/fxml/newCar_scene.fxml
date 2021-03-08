@@ -26,9 +26,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="brandTextField" layoutX="289.0" layoutY="92.0" prefHeight="25.0" prefWidth="301.0" promptText="Brand" />
-      <TextField fx:id="modelTextField" layoutX="289.0" layoutY="142.0" prefHeight="25.0" prefWidth="301.0" promptText="Model" />
-      <TextField fx:id="valueTextField" layoutX="289.0" layoutY="192.0" prefHeight="25.0" prefWidth="301.0" promptText="Value" />
-      <TextField fx:id="mileageTextField" layoutX="289.0" layoutY="242.0" prefHeight="25.0" prefWidth="301.0" promptText="Mileage" />
+      <TextField fx:id="brandTextField" layoutX="289.0" layoutY="92.0" prefHeight="25.0" prefWidth="274.0" promptText="Brand" />
+      <TextField fx:id="modelTextField" layoutX="289.0" layoutY="142.0" prefHeight="25.0" prefWidth="274.0" promptText="Model" />
+      <TextField fx:id="valueTextField" layoutX="289.0" layoutY="192.0" prefHeight="25.0" prefWidth="274.0" promptText="Value" />
+      <TextField fx:id="mileageTextField" layoutX="289.0" layoutY="242.0" prefHeight="25.0" prefWidth="274.0" promptText="Mileage" />
    </children>
 </AnchorPane>

@@ -3,6 +3,7 @@ package com.github.transactions;
 import com.github.entities.Transaction;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,6 +29,7 @@ public class TransactionsController implements Initializable {
       public Button newSaleButton;
       public Button removeButton;
       public Button backButton;
+      public TextField searchTextField;
       public TableColumn<Transaction, String> brand;
       public TableColumn<Transaction, String> model;
       public TableColumn<Transaction, String> value;
@@ -128,6 +130,11 @@ public class TransactionsController implements Initializable {
                               }
                         }
                   }
+            });
+
+            searchTextField.textProperty().addListener((obs, oldValue, newValue) -> {
+
+                  tableView.getItems().setAll(DataStorageService.searchTransactions(newValue));
             });
 
       }

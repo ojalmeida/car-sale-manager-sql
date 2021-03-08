@@ -65,25 +65,57 @@ public class DataStorageService implements DataStorageInterface{
                 .executeUpdate();
         entityManager.getTransaction().commit();
     }
-    public static List<Car> findCarsByBrand(String brand){
-        return entityManager.createQuery("select c from Car c where c.brand = ?0", Car.class)
-                .setParameter(0, brand).getResultList();
+    public static List<Car> findCars(String brand, String model, Double value, Integer mileage){
+        if(brand != null && model != null && value != null && mileage != null){
+            return entityManager.createQuery("select c from Car c where c.brand = ?0 " +
+                    "and c.model = ?1 " +
+                    "and c.value = ?2 " +
+                    "and c.mileage = ?3", Car.class)
+                    .setParameter(0, brand)
+                    .setParameter(1, model)
+                    .setParameter(2, value)
+                    .setParameter(3, mileage)
+                    .getResultList();
+
+        }
+        else if(brand != null && model != null && value != null){
+            return entityManager.createQuery("select c from Car c where c.brand = ?0 " +
+                    "and c.model = ?1 " +
+                    "and c.value = ?2", Car.class)
+                    .setParameter(0, brand)
+                    .setParameter(1, model)
+                    .setParameter(2, value)
+                    .getResultList();
+        }
+        else if(brand != null && model != null){
+            return entityManager.createQuery("select c from Car c where c.brand = ?0 " +
+                    "and c.model = ?1", Car.class)
+                    .setParameter(0, brand)
+                    .setParameter(1, model)
+                    .getResultList();
+        }
+        else{
+            return entityManager.createQuery("select c from Car c where c.brand = ?0 " +
+                    "and c.model = ?1", Car.class)
+                    .setParameter(0, brand)
+                    .getResultList();
+        }
+
     }
-    public static List<Car> findCarsByModel(String model){
-        return entityManager.createQuery("select c from Car c where c.model = ?0", Car.class)
-                .setParameter(0, model).getResultList();
-    }
-    public static List<Car> findCarsByValue(Double value){
-        return entityManager.createQuery("select c from Car c where c.value = ?0", Car.class)
-                .setParameter(0, value).getResultList();
-    }
-    public static List<Car> findCarsByMileage(Integer mileage){
-        return entityManager.createQuery("select c from Car c where c.mileage = ?0", Car.class)
-                .setParameter(0, mileage).getResultList();
+    public static ObservableList<Car> searchCars(String text) {
+
+        return FXCollections.observableArrayList(entityManager.createNativeQuery("select * from cars where brand like '%" + text + "%'" +
+                "or model like '%" + text + "%'", Car.class)
+                .getResultList());
     }
 
 
+    public static ObservableList<Transaction> searchTransactions(String text) {
 
+        return FXCollections.observableArrayList(entityManager.createNativeQuery("select * from transactions where brand like '%" + text + "%'" +
+                "or model like '%" + text + "%'", Transaction.class)
+                .getResultList());
+    }
     public static void addTransaction(Transaction transaction) throws IOException, ParseException {
 
         entityManager.getTransaction().begin();
