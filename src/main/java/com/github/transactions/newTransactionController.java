@@ -33,6 +33,9 @@ public class newTransactionController implements Initializable {
     public MenuButton mileageMenu;
     public Pane anchorPane;
 
+    public static Boolean isReady = false;
+    public static Boolean wasClosed = false;
+
     private String brand;
     private String model;
     private String value;
@@ -46,7 +49,6 @@ public class newTransactionController implements Initializable {
     public void onActionSellButton(ActionEvent actionEvent) throws IOException {
         try {
             DataStorageService.addTransaction(processTransaction());
-            TransactionsController.NEEDS_DATA_UPDATE.set(true);
             Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.close();
 
@@ -95,7 +97,8 @@ public class newTransactionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        isReady = false;
+        wasClosed = false;
 
         sellButton.setDefaultButton(true);
 

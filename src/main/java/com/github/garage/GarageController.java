@@ -4,6 +4,9 @@ import com.github.entities.Car;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +33,6 @@ import java.util.ResourceBundle;
 
 public class GarageController implements Initializable {
 
-    public static SimpleBooleanProperty NEEDS_DATA_UPDATE = new SimpleBooleanProperty(false);
 
     @FXML
     public Button exitButton;
@@ -49,6 +51,7 @@ public class GarageController implements Initializable {
         stage.close();
     }
     public void onActionInsertButton(ActionEvent actionEvent) throws IOException {
+
         Stage popup = new Stage();
         popup.setScene(new Scene(FXMLLoader.load(Main.class.getResource("/fxml/newCar_scene.fxml"))));
         popup.initStyle(StageStyle.UNDECORATED);
@@ -56,8 +59,11 @@ public class GarageController implements Initializable {
         popup.setY(260);
         popup.show();
 
+        new UpdateService(tableView).start();
+
     }
     public void onActionRemoveButton(ActionEvent actionEvent) throws IOException {
+
         Car selectedCar = tableView.getSelectionModel().getSelectedItem();
         DataStorageService.removeCar(selectedCar);
         tableView.getItems().remove(selectedCar);
@@ -67,20 +73,16 @@ public class GarageController implements Initializable {
         Main.enterMain((Stage) exitButton.getScene().getWindow());
     }
 
-
-
     public void updateTable(){
 
         try {
 
             tableView.getItems().setAll(DataStorageService.cars());
-            NEEDS_DATA_UPDATE.set(false);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error occurred");
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,16 +93,6 @@ public class GarageController implements Initializable {
         mileage.setCellValueFactory(new PropertyValueFactory<>("Mileage"));
 
         updateTable();
-
-        NEEDS_DATA_UPDATE.addListener((observable, oldValue, newValue) -> {
-
-            if(newValue){
-
-                updateTable();
-
-            }
-
-        });
 
         tableView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
 
@@ -126,5 +118,32 @@ public class GarageController implements Initializable {
 
         });
 
+    }
+
+    public static class UpdateService extends Service<Void>{
+
+        private UpdateService(TableView<Car> tableView){
+            setOnSucceeded(workerStateEvent -> {
+                try {
+                    tableView.getItems().setAll(DataStorageService.cars());
+                    System.out.println("table updated");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    while(!newCarController.isReady && !newCarController.wasClosed){
+                        Thread.sleep(10);
+                    }
+                    return null;
+                }
+            };
+        }
     }
 }

@@ -16,6 +16,9 @@ import java.util.ResourceBundle;
 
 public class newCarController implements Initializable {
 
+    public static Boolean isReady = false;
+    public static Boolean wasClosed = false;
+
     @FXML
     public Button insertButton;
     public Button exitButton;
@@ -35,18 +38,18 @@ public class newCarController implements Initializable {
 
     public void onActionExitButton(ActionEvent actionEvent){
 
+        wasClosed = true;
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+
     }
-
-
     public void onActionInsertButton(ActionEvent actionEvent) throws IOException {
 
         newCar = new Car(null, brand, model, value, mileage);
         DataStorageService.addCar(newCar);
-        GarageController.NEEDS_DATA_UPDATE.set(true);
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+        isReady = true;
 
 
     }
@@ -55,6 +58,9 @@ public class newCarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        isReady = false;
+        wasClosed = false;
 
 
         brandTextField.textProperty().addListener((observable, oldValue, newValue) -> brand = newValue);

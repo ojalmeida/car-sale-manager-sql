@@ -1,9 +1,13 @@
 package com.github.transactions;
 
+import com.github.entities.Car;
 import com.github.entities.Transaction;
+import com.github.garage.newCarController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,7 +39,6 @@ public class TransactionsController implements Initializable {
       public TableColumn<Transaction, String> value;
       public TableColumn<Transaction, String> date;
       public TableColumn<Transaction, String> salesman;
-      public static SimpleBooleanProperty NEEDS_DATA_UPDATE = new SimpleBooleanProperty(false);
 
 
 
@@ -52,6 +55,8 @@ public class TransactionsController implements Initializable {
             popup.setX(380);
             popup.setY(260);
             popup.show();
+
+            new UpdateService(tableView).start();
 
 
       }
@@ -70,10 +75,7 @@ public class TransactionsController implements Initializable {
 
       public void updateTable(){
             try {
-
                   tableView.setItems(DataStorageService.transactions());
-                  NEEDS_DATA_UPDATE.set(false);
-
 
             } catch (IOException | ParseException e) {
                   e.printStackTrace();
@@ -84,13 +86,6 @@ public class TransactionsController implements Initializable {
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            NEEDS_DATA_UPDATE.addListener((observable, oldValue, newValue) -> {
-
-                  if (newValue) {
-                        updateTable();
-                  }
-
-            });
 
             updateTable();
 
@@ -137,5 +132,31 @@ public class TransactionsController implements Initializable {
                   tableView.getItems().setAll(DataStorageService.searchTransactions(newValue));
             });
 
+      }
+
+      public static class UpdateService extends Service<Void> {
+
+            private UpdateService(TableView<Transaction> tableView){
+                  setOnSucceeded(workerStateEvent -> {
+                        try {
+                              tableView.getItems().setAll(DataStorageService.transactions());
+                        } catch (IOException | ParseException e) {
+                              e.printStackTrace();
+                        }
+                  });
+            }
+
+            @Override
+            protected Task<Void> createTask() {
+                  return new Task<>() {
+                        @Override
+                        protected Void call() throws Exception {
+                              while(!newTransactionController.isReady && !newTransactionController.wasClosed){
+                                    Thread.sleep(10);
+                              }
+                              return null;
+                        }
+                  };
+            }
       }
 }
