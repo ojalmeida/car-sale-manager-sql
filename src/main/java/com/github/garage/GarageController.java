@@ -46,6 +46,9 @@ public class GarageController implements Initializable {
     public TableColumn<Car, Double> value;
     public TableColumn<Car, Integer> mileage;
 
+    private static Boolean onMenu = false;
+    private static Boolean onNewCar = false;
+
     public void onActionExitButton(ActionEvent actionEvent){
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
@@ -59,6 +62,8 @@ public class GarageController implements Initializable {
         popup.setY(260);
         popup.show();
 
+        onMenu = false;
+        onNewCar = true;
         new UpdateService(tableView).start();
 
     }
@@ -109,6 +114,10 @@ public class GarageController implements Initializable {
                 menu.setY(mouseEvent.getSceneY());
                 menu.setX(mouseEvent.getSceneX() + 75);
                 menu.show();
+
+                onNewCar = false;
+                onMenu = true;
+                new UpdateService(tableView).start();
             }
         });
 
@@ -122,14 +131,30 @@ public class GarageController implements Initializable {
 
     public static class UpdateService extends Service<Void>{
 
-        private UpdateService(TableView<Car> tableView){
+        protected UpdateService(TableView<Car> tableView){
             setOnSucceeded(workerStateEvent -> {
-                try {
-                    tableView.getItems().setAll(DataStorageService.cars());
-                    System.out.println("table updated");
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                if(newCarController.finished){ ///update table
+                    try {
+                        tableView.getItems().setAll(DataStorageService.cars());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else if (GarageMenuController.hasResults){
+                    tableView.getItems().setAll(FXCollections.observableArrayList(GarageMenuController.results));
+                }
+                else if(GarageMenuController.needClear){
+                    for(Car c: tableView.getItems()){
+                        try {
+                            DataStorageService.removeCar(c);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    tableView.getItems().clear();
+                }
+
             });
         }
 
@@ -138,12 +163,25 @@ public class GarageController implements Initializable {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    while(!newCarController.isReady && !newCarController.wasClosed){
-                        Thread.sleep(10);
+
+                    if(onNewCar) {
+                        while (!newCarController.finished) {
+                            Thread.sleep(10);
+                        }
+                        return null;
                     }
-                    return null;
+                    else if (onMenu){
+                        while (!GarageMenuController.finished) {
+                            Thread.sleep(10);
+                        }
+                        return null;
+                    }
+                    else{
+                        throw new RuntimeException("State variables error");
+                    }
                 }
             };
         }
     }
+
 }

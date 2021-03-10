@@ -16,10 +16,8 @@ import java.util.ResourceBundle;
 
 public class newCarController implements Initializable {
 
-    public static Boolean isReady = false;
-    public static Boolean wasClosed = false;
+    public static Boolean finished = false;
 
-    @FXML
     public Button insertButton;
     public Button exitButton;
     public TextField brandTextField;
@@ -38,7 +36,7 @@ public class newCarController implements Initializable {
 
     public void onActionExitButton(ActionEvent actionEvent){
 
-        wasClosed = true;
+        finished = false;
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
 
@@ -49,7 +47,8 @@ public class newCarController implements Initializable {
         DataStorageService.addCar(newCar);
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
-        isReady = true;
+        finished = true;
+
 
 
     }
@@ -59,8 +58,7 @@ public class newCarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        isReady = false;
-        wasClosed = false;
+        finished = false;
 
 
         brandTextField.textProperty().addListener((observable, oldValue, newValue) -> brand = newValue);
