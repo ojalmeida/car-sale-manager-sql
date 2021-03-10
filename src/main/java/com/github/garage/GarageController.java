@@ -122,9 +122,7 @@ public class GarageController implements Initializable {
         });
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-
             tableView.getItems().setAll(DataStorageService.searchCars(newValue));
-
         });
 
     }
@@ -133,7 +131,6 @@ public class GarageController implements Initializable {
 
         protected UpdateService(TableView<Car> tableView){
             setOnSucceeded(workerStateEvent -> {
-
                 if(newCarController.finished){ ///update table
                     try {
                         tableView.getItems().setAll(DataStorageService.cars());
@@ -154,7 +151,6 @@ public class GarageController implements Initializable {
                     }
                     tableView.getItems().clear();
                 }
-
             });
         }
 
@@ -163,7 +159,6 @@ public class GarageController implements Initializable {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-
                     if(onNewCar) {
                         while (!newCarController.finished) {
                             Thread.sleep(10);

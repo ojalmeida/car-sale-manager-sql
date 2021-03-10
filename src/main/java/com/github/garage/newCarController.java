@@ -48,9 +48,6 @@ public class newCarController implements Initializable {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
         finished = true;
-
-
-
     }
 
 
@@ -59,7 +56,6 @@ public class newCarController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         finished = false;
-
 
         brandTextField.textProperty().addListener((observable, oldValue, newValue) -> brand = newValue);
         modelTextField.textProperty().addListener((observable, oldValue, newValue) -> model = newValue);

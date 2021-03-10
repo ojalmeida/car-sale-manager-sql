@@ -40,8 +40,6 @@ public class GarageMenuController implements Initializable {
         results = DataStorageService.findCars(focusedCar.getBrand(), focusedCar.getModel(), null, null);
         hasResults = true;
         exit();
-
-
     }
     public void onActionSellButton(ActionEvent actionEvent) throws IOException, ParseException {
 
@@ -54,7 +52,6 @@ public class GarageMenuController implements Initializable {
         exit();
     }
     public void onActionClearButton(ActionEvent actionEvent){
-
         needClear = true;
         exit();
 
@@ -70,7 +67,6 @@ public class GarageMenuController implements Initializable {
         finished = true;
         Stage menu = (Stage) anchorPane.getScene().getWindow();
         menu.close();
-
     }
 
     @Override
