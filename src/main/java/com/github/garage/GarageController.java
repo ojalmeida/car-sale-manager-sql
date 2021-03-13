@@ -151,6 +151,13 @@ public class GarageController implements Initializable {
                     }
                     tableView.getItems().clear();
                 }
+                else if(GarageMenuController.finished){
+                    try {
+                        tableView.getItems().setAll(DataStorageService.cars());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             });
         }
 
