@@ -139,6 +139,7 @@ public class GarageController implements Initializable {
                     }
                 }
                 else if (GarageMenuController.hasResults){
+
                     tableView.getItems().setAll(FXCollections.observableArrayList(GarageMenuController.results));
                 }
                 else if(GarageMenuController.needClear){
@@ -150,6 +151,13 @@ public class GarageController implements Initializable {
                         }
                     }
                     tableView.getItems().clear();
+                }
+                else if(GarageMenuController.finished){
+                    try {
+                        tableView.getItems().setAll(DataStorageService.cars());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

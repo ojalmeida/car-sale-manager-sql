@@ -1,13 +1,16 @@
 package com.github.main;
 
 import com.github.entities.User;
+import javafx.animation.FillTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import com.github.services.DataStorageService;
+import javafx.util.Duration;
 
 import java.io.*;
 
@@ -23,8 +26,6 @@ public class Main extends Application {
         stage.show();
     }
     public static void enterFleet(Stage stage) throws IOException {
-
-
         Parent root = FXMLLoader.load(Main.class.getResource("/fxml/garage_scene.fxml"));
         stage.setTitle("Fleet");
         stage.setScene(new Scene(root, 1280, 720));
