@@ -151,7 +151,7 @@ public class TransactionsController implements Initializable {
                   return new Task<>() {
                         @Override
                         protected Void call() throws Exception {
-                              while(!newTransactionController.isReady && !newTransactionController.wasClosed){
+                              while(!newTransactionController.finished){
                                     Thread.sleep(10);
                               }
                               return null;

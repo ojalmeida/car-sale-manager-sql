@@ -94,10 +94,13 @@ public class DataStorageService implements DataStorageInterface{
                     .setParameter(1, model)
                     .getResultList();
         }
-        else{
-            return entityManager.createQuery("select c from Car c where c.brand = ?0 " +
-                    "and c.model = ?1", Car.class)
+        else if (brand != null){
+            return entityManager.createQuery("select c from Car c where c.brand = ?0 ", Car.class)
                     .setParameter(0, brand)
+                    .getResultList();
+        }
+        else{
+            return entityManager.createQuery("select c from Car c", Car.class)
                     .getResultList();
         }
 
